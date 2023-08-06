@@ -1,0 +1,29 @@
+<%- include('partials/header.ejs') %>
+<script async defer src="account.js"></script>
+<div id="websocketURL" data-url="<%= websocketURL %>"></div>
+
+<% for (const urlMap of urlMaps) { %>
+        <h4><%= urlMap.shortURL %></h4>
+        <h4><%= urlMap.originalURL %></h4>
+        <h4 data-shorturl="<%= urlMap.shortURL %>" class="click-count"><%= urlMap.clickCount %> clicks</h4>
+        <form method="post" action="/url/delete">
+            <input type="hidden" name="urlMapID" value="<%= urlMap.id %>">
+            <button type="submit">delete</button>
+        </form>
+        <br>
+<% } %>
+
+<form method="post" action="/url/add">
+    <input type="text" placeholder="original url" name="originalURL" required>
+    <input type="text" placeholder="short url" name="shortURL" required>
+    <input type="hidden" name="userID" value="<%= userID %>">
+    <button type="submit">add</button>
+</form>
+
+<br>
+
+<form method="post" action="/logout">
+    <button type="submit">logout</button>
+</form>
+
+<%- include('partials/footer.ejs') %>
